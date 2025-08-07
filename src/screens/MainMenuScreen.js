@@ -1,30 +1,39 @@
-// screens/MainMenuScreen.js
 import React from 'react';
-import { View, Button, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function MainMenuScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Menú Principal</Text>
+      {/* Imagen superior con degradado */}
+      <View style={styles.imageContainer}>
+        <Image
+          source={require('../assets/images/img.jpg')}
+          style={styles.image}
+          resizeMode="cover"
+        />
+        <LinearGradient
+          colors={['transparent', 'rgba(0,0,0,0.3)']}
+          style={styles.gradientOverlay}
+        />
+      </View>
 
-      <Button
-        title="📝 Registrar Persona Indocumentada"
-        onPress={() => navigation.navigate('Registro')}
-      />
+      {/* Opciones de menú */}
+      <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate('Registro')}>
+        <FontAwesome6 name="pen" size={18} color="#fff" style={styles.icon} />
+        <Text style={styles.menuText}>Registrar Persona Indocumentada</Text>
+      </TouchableOpacity>
 
-      <View style={styles.space} />
+      <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate('Listado')}>
+        <FontAwesome6 name="list" size={18} color="#fff" style={styles.icon} />
+        <Text style={styles.menuText}>Ver Listado de Personas</Text>
+      </TouchableOpacity>
 
-      <Button
-        title="📋 Ver Listado de Personas"
-        onPress={() => navigation.navigate('Listado')}
-      />
-
-      <View style={styles.space} />
-
-      <Button
-        title="ℹ️ Acerca del Agente"
-        onPress={() => navigation.navigate('AcercaDe')}
-      />
+      <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate('AcercaDe')}>
+        <FontAwesome6 name="user" size={18} color="#fff" style={styles.icon} />
+        <Text style={styles.menuText}>Acerca del Agente</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -32,16 +41,43 @@ export default function MainMenuScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#000',
     padding: 20
   },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 40,
-    textAlign: 'center'
+  imageContainer: {
+    height: '48%',
+    width: '100%',
+    marginBottom: 30,
+    overflow: 'hidden',
+    borderRadius: 6
   },
-  space: {
-    height: 20
+  image: {
+    width: '100%',
+    height: '100%'
+  },
+  gradientOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderRadius: 6
+  },
+  menuButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#555',
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    borderRadius: 8,
+    marginBottom: 24
+  },
+  icon: {
+    marginRight: 10
+  },
+  menuText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold'
   }
 });
